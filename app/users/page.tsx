@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useMemo } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useState, useEffect, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
   Users,
@@ -13,65 +13,67 @@ import {
   Building,
   Filter,
   ArrowLeft,
-} from "lucide-react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ThreeDCard } from "@/components/three-d-card"
-import { FloatingElements } from "@/components/floating-elements"
-import { SkeletonLoader } from "@/components/skeleton-loader"
-import { MobileNav } from "@/components/mobile-nav"
+} from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ThreeDCard } from "@/components/three-d-card";
+import { FloatingElements } from "@/components/floating-elements";
+import { SkeletonLoader } from "@/components/skeleton-loader";
+import { MobileNav } from "@/components/mobile-nav";
 
 interface User {
-  id: number
-  name: string
-  username: string
-  email: string
-  phone: string
-  website: string
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  phone: string;
+  website: string;
   company: {
-    name: string
-    catchPhrase: string
-    bs: string
-  }
+    name: string;
+    catchPhrase: string;
+    bs: string;
+  };
   address: {
-    street: string
-    suite: string
-    city: string
-    zipcode: string
+    street: string;
+    suite: string;
+    city: string;
+    zipcode: string;
     geo: {
-      lat: string
-      lng: string
-    }
-  }
+      lat: string;
+      lng: string;
+    };
+  };
 }
 
 export default function UsersPage() {
-  const [users, setUsers] = useState<User[]>([])
-  const [loading, setLoading] = useState(true)
-  const [searchTerm, setSearchTerm] = useState("")
-  const [currentPage, setCurrentPage] = useState(1)
-  const [usersPerPage] = useState(6)
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage] = useState(6);
 
   // Fetch users from JSONPlaceholder API
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        setLoading(true)
-        const response = await fetch("https://jsonplaceholder.typicode.com/users")
-        const data = await response.json()
-        setUsers(data)
+        setLoading(true);
+        const response = await fetch(
+          "https://jsonplaceholder.typicode.com/users"
+        );
+        const data = await response.json();
+        setUsers(data);
       } catch (error) {
-        console.error("Error fetching users:", error)
+        console.error("Error fetching users:", error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchUsers()
-  }, [])
+    fetchUsers();
+  }, []);
 
   // Filter users based on search term
   const filteredUsers = useMemo(() => {
@@ -79,24 +81,24 @@ export default function UsersPage() {
       (user) =>
         user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.username.toLowerCase().includes(searchTerm.toLowerCase()),
-    )
-  }, [users, searchTerm])
+        user.username.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [users, searchTerm]);
 
   // Pagination logic
-  const totalPages = Math.ceil(filteredUsers.length / usersPerPage)
-  const startIndex = (currentPage - 1) * usersPerPage
-  const endIndex = startIndex + usersPerPage
-  const currentUsers = filteredUsers.slice(startIndex, endIndex)
+  const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+  const startIndex = (currentPage - 1) * usersPerPage;
+  const endIndex = startIndex + usersPerPage;
+  const currentUsers = filteredUsers.slice(startIndex, endIndex);
 
   // Reset to first page when search changes
   useEffect(() => {
-    setCurrentPage(1)
-  }, [searchTerm])
+    setCurrentPage(1);
+  }, [searchTerm]);
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page)
-  }
+    setCurrentPage(page);
+  };
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
@@ -112,13 +114,10 @@ export default function UsersPage() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm" asChild className="md:hidden">
-                <Link href="/">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Back
-                </Link>
-              </Button>
-              <Link href="/" className="hidden md:flex items-center space-x-2 hover:opacity-80 transition-opacity">
+              <Link
+                href="/"
+                className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
+              >
                 <motion.div
                   className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center"
                   whileHover={{
@@ -129,7 +128,9 @@ export default function UsersPage() {
                 >
                   <Users className="w-5 h-5 text-primary-foreground" />
                 </motion.div>
-                <h1 className="text-xl font-bold text-foreground">Dashboard Pro</h1>
+                <h1 className="text-xl font-bold text-foreground">
+                  Dashboard Pro
+                </h1>
               </Link>
             </div>
 
@@ -143,7 +144,7 @@ export default function UsersPage() {
                   {filteredUsers.length} Users Found
                 </Badge>
               </motion.div>
-              <MobileNav />
+              {/* <MobileNav /> */}
             </div>
           </div>
         </div>
@@ -157,7 +158,9 @@ export default function UsersPage() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mb-6 md:mb-8"
         >
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">User Management</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+            User Management
+          </h1>
           <p className="text-muted-foreground mb-4 md:mb-6 text-sm md:text-base">
             Manage and search through user profiles
           </p>
@@ -186,7 +189,9 @@ export default function UsersPage() {
         </motion.div>
 
         {/* Loading State */}
-        <AnimatePresence>{loading && <SkeletonLoader count={6} />}</AnimatePresence>
+        <AnimatePresence>
+          {loading && <SkeletonLoader count={6} />}
+        </AnimatePresence>
 
         {/* Users Grid */}
         <AnimatePresence>
@@ -230,8 +235,12 @@ export default function UsersPage() {
                               ID: {user.id}
                             </Badge>
                           </div>
-                          <CardTitle className="text-base md:text-lg text-balance leading-tight">{user.name}</CardTitle>
-                          <p className="text-xs md:text-sm text-muted-foreground">@{user.username}</p>
+                          <CardTitle className="text-base md:text-lg text-balance leading-tight">
+                            {user.name}
+                          </CardTitle>
+                          <p className="text-xs md:text-sm text-muted-foreground">
+                            @{user.username}
+                          </p>
                         </CardHeader>
                         <CardContent className="space-y-2 md:space-y-3">
                           <motion.div
@@ -240,7 +249,9 @@ export default function UsersPage() {
                             transition={{ duration: 0.2 }}
                           >
                             <Mail className="w-3 h-3 md:w-4 md:h-4 text-muted-foreground flex-shrink-0" />
-                            <span className="text-muted-foreground truncate">{user.email}</span>
+                            <span className="text-muted-foreground truncate">
+                              {user.email}
+                            </span>
                           </motion.div>
                           <motion.div
                             className="flex items-center space-x-2 text-xs md:text-sm"
@@ -248,7 +259,9 @@ export default function UsersPage() {
                             transition={{ duration: 0.2 }}
                           >
                             <Phone className="w-3 h-3 md:w-4 md:h-4 text-muted-foreground flex-shrink-0" />
-                            <span className="text-muted-foreground truncate">{user.phone}</span>
+                            <span className="text-muted-foreground truncate">
+                              {user.phone}
+                            </span>
                           </motion.div>
                           <motion.div
                             className="flex items-center space-x-2 text-xs md:text-sm"
@@ -256,7 +269,9 @@ export default function UsersPage() {
                             transition={{ duration: 0.2 }}
                           >
                             <Building className="w-3 h-3 md:w-4 md:h-4 text-muted-foreground flex-shrink-0" />
-                            <span className="text-muted-foreground truncate">{user.company.name}</span>
+                            <span className="text-muted-foreground truncate">
+                              {user.company.name}
+                            </span>
                           </motion.div>
                         </CardContent>
                       </Card>
@@ -270,10 +285,18 @@ export default function UsersPage() {
 
         {/* No Results */}
         {!loading && filteredUsers.length === 0 && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-12 md:py-16">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center py-12 md:py-16"
+          >
             <Users className="w-12 h-12 md:w-16 md:h-16 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-lg md:text-xl font-semibold text-foreground mb-2">No users found</h3>
-            <p className="text-muted-foreground text-sm md:text-base">Try adjusting your search terms</p>
+            <h3 className="text-lg md:text-xl font-semibold text-foreground mb-2">
+              No users found
+            </h3>
+            <p className="text-muted-foreground text-sm md:text-base">
+              Try adjusting your search terms
+            </p>
           </motion.div>
         )}
 
@@ -299,13 +322,13 @@ export default function UsersPage() {
 
               <div className="flex space-x-1">
                 {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
-                  let page = i + 1
+                  let page = i + 1;
                   if (totalPages > 5) {
                     if (currentPage > 3) {
-                      page = currentPage - 2 + i
+                      page = currentPage - 2 + i;
                     }
                     if (currentPage > totalPages - 2) {
-                      page = totalPages - 4 + i
+                      page = totalPages - 4 + i;
                     }
                   }
                   return (
@@ -318,7 +341,7 @@ export default function UsersPage() {
                     >
                       {page}
                     </Button>
-                  )
+                  );
                 })}
               </div>
 
@@ -345,11 +368,13 @@ export default function UsersPage() {
             className="text-center mt-4 md:mt-6"
           >
             <p className="text-xs md:text-sm text-muted-foreground">
-              Showing {startIndex + 1} to {Math.min(endIndex, filteredUsers.length)} of {filteredUsers.length} users
+              Showing {startIndex + 1} to{" "}
+              {Math.min(endIndex, filteredUsers.length)} of{" "}
+              {filteredUsers.length} users
             </p>
           </motion.div>
         )}
       </div>
     </div>
-  )
+  );
 }

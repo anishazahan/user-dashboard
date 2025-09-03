@@ -68,33 +68,28 @@ export default function HomePage() {
               >
                 <BarChart3 className="w-5 h-5 text-primary-foreground" />
               </motion.div>
-              <h1 className="text-xl font-bold text-foreground">
+              <h1 className="text-xl font-bold text-foreground cursor-pointer">
                 Dashboard Pro
               </h1>
             </motion.div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-6">
+            <nav className="flex items-center space-x-6">
               <Link
                 href="/users"
                 className="text-muted-foreground hover:text-foreground transition-colors"
               >
                 Users
               </Link>
-              <Link
-                href="/analytics"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Analytics
-              </Link>
+
               <Button variant="outline" size="sm">
                 <Settings className="w-4 h-4 mr-2" />
                 Settings
               </Button>
             </nav>
 
-            {/* Mobile Navigation */}
-            <MobileNav />
+            {/* Mobile Navigation
+            <MobileNav /> */}
           </div>
         </div>
       </motion.header>
@@ -182,16 +177,6 @@ export default function HomePage() {
                   <Users className="w-4 h-4 md:w-5 md:h-5 mr-2" />
                   View Users
                 </Link>
-              </Button>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button
-                variant="outline"
-                size="lg"
-                className="text-base md:text-lg px-6 md:px-8 w-full sm:w-auto bg-transparent"
-              >
-                <Search className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-                Search Demo
               </Button>
             </motion.div>
           </motion.div>
@@ -336,50 +321,46 @@ export default function HomePage() {
         transition={{ duration: 0.6, delay: 1.8 }}
         className="container mx-auto px-4 py-8 md:py-16 relative z-10"
       >
-        <ThreeDCard>
-          <Card className="bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5 border-primary/20 backdrop-blur-sm">
-            <CardContent className="text-center py-8 md:py-12 px-4">
-              <motion.div
-                animate={{
-                  scale: [1, 1.05, 1],
-                  rotate: [0, 2, -2, 0],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
-                }}
-                className="mb-4 md:mb-6"
+        {/* <ThreeDCard> */}
+        <Card className="bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5 border-primary/20 backdrop-blur-sm">
+          <CardContent className="text-center py-8 md:py-12 px-4">
+            <motion.div
+              animate={{
+                scale: [1, 1.05, 1],
+                rotate: [0, 2, -2, 0],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
+              className="mb-4 md:mb-6"
+            >
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-primary rounded-full flex items-center justify-center mx-auto shadow-lg">
+                <Users className="w-6 h-6 md:w-8 md:h-8 text-primary-foreground" />
+              </div>
+            </motion.div>
+            <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3 md:mb-4">
+              Ready to Get Started?
+            </h3>
+            <p className="text-muted-foreground mb-4 md:mb-6 text-base md:text-lg">
+              Explore the user management system and see all features in action
+            </p>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                asChild
+                size="lg"
+                className="text-base md:text-lg px-6 md:px-8 shadow-lg"
               >
-                <div className="w-12 h-12 md:w-16 md:h-16 bg-primary rounded-full flex items-center justify-center mx-auto shadow-lg">
-                  <Users className="w-6 h-6 md:w-8 md:h-8 text-primary-foreground" />
-                </div>
-              </motion.div>
-              <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3 md:mb-4">
-                Ready to Get Started?
-              </h3>
-              <p className="text-muted-foreground mb-4 md:mb-6 text-base md:text-lg">
-                Explore the user management system and see all features in
-                action
-              </p>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Button
-                  asChild
-                  size="lg"
-                  className="text-base md:text-lg px-6 md:px-8 shadow-lg"
-                >
-                  <Link href="/users">
-                    <Users className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-                    Explore Dashboard
-                  </Link>
-                </Button>
-              </motion.div>
-            </CardContent>
-          </Card>
-        </ThreeDCard>
+                <Link href="/users">
+                  <Users className="w-4 h-4 md:w-5 md:h-5 mr-2" />
+                  Explore Dashboard
+                </Link>
+              </Button>
+            </motion.div>
+          </CardContent>
+        </Card>
+        {/* </ThreeDCard> */}
       </motion.section>
     </div>
   );
