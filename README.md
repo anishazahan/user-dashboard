@@ -63,7 +63,7 @@ This project demonstrates professional frontend practices, animations, API integ
 
 ```bash
 # Clone repo
-git clone https://github.com/your-username/your-repo.git
+git clone https://github.com/anishazahan/user-dashboard
 
 # Move into folder
 cd your-repo
